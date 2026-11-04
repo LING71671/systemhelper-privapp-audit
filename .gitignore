@@ -1,0 +1,21 @@
+# 样本与分析产物不随仓库分发
+*.apk
+*.dex
+unpack/
+strings.txt
+scan_*.txt
+manifest.xml
+dumpsys*.txt
+netstats*.txt
+battery*.txt
+diskstats.txt
+
+# 本地抓包与截图
+*.pcap
+*.log
+captures/
+
+# 编辑器
+.vscode/
+.idea/
+.DS_Store
