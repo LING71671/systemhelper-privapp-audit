@@ -59,7 +59,7 @@ BOOT_COMPLETED / QUICKBOOT_POWERON
             ├─ GetSignalInfoReceiver    → 百度定位 → SignalInfo 入库
             ├─ AppInfoRegisterReceiver  → 逐应用时长 + 流量
             ├─ SignalInfoRegisterReceiver
-            └─ ScheduleRegisterReceiver → RegisterIntentService → 上报线程
+            └─ ScheduleRegisterReceiver → DeviceInfo / DeviceManager → 上报线程
 ```
 
 已识别的定时调用使用 `setExactAndAllowWhileIdle`（type=2，ELAPSED_WAKEUP），允许在 Doze 下唤醒。
@@ -69,7 +69,7 @@ BOOT_COMPLETED / QUICKBOOT_POWERON
 | 组件 | 行为 |
 |---|---|
 | `Activity/TestActivity` | 界面将设备信息 JSON（含 IMEI/IMSI）显示在 TextView 中 |
-| `service/RegisterHelperService` | 提供注册上报入口；本轮未启动 |
+| `service/RegisterHelperService` | Binder 辅助接口，可配置间隔、服务器地址和日志；单独启动不等于触发上报 |
 | `control/OnBootReceiver` | 高优先级开机接收器 |
 | `control/SIMStateReceiver` | 换卡触发 |
 | `control/ConnectStateReceiver` | 网络变化触发 |
@@ -144,22 +144,27 @@ APK 字符串表里存在一个字面量：
 http://dm.wo.com.cn:18080/register
 ```
 
-本次扫描未找到引用该字面量的指令。发送逻辑从 SharedPreferences 读取 `serverAddress`，
-不能将字符串表中的地址直接视为实际接收服务器。
+该地址是配置字段 `Lc/d/a/b/d;->l` 的 DEX 编码静态初值。
+`Lc/d/a/b/l;->h(Context)` 默认读取 SharedPreferences 的 `serverAddress`，缺省时使用该地址。
+只扫描方法内字符串指令会漏掉静态初值，不能据此判定地址未被使用。
 
 仅凭本次 APK 分析无法确认实际接收服务器。设备配置位于
 `shared_prefs/com_mobiletools_systemhelper_preference.xml`，本次无 root，未能读取。
 
-### 发送条件
+### 发送判断与厂商差异
 
-发送前依次判断：
+注册线程和历史重传线程检查的是静态变量 `Lc/d/a/b/d;->e:Z`。
+这个变量虽然在日志中叫 `isUserPermissionOpen`，实际赋值随厂商分支变化：
 
-1. `device_provisioned == 1`（开机向导已完成）
-2. `Settings.Secure.operator_service_improve_plan == 1`（用户侧的「运营商服务改进计划」开关）
-3. 网络 MNC 以 `460` 开头，且满足「联通网络 或 WiFi」
-4. 定时器到点
+| 厂商分支 | 赋值依据 | 同意开关设为 `0` 是否会使该判断失败 |
+|---|---|---|
+| vivo | 开机向导完成，且 `operator_service_improve_plan == 1` | 会，静态代码结论 |
+| Xiaomi、OPPO、samsung | 各自的函数只检查 `device_provisioned == 1` | 不会 |
+| Liantong、nubia、OnePlus、PTAC、realme、TDTECH、WIKO、ZTE | 调用基础读取流程，非 vivo 路径只检查开机向导 | 不会 |
 
-关闭第 2 项后，代码会跳过发送流程。本轮读取时该值已为 `0`，未重新触发服务验证。
+本机 `device_provisioned=1`，小米分支仍会将这个判断设为 true。
+业务发送还检查国内网络标识及 WiFi / 联通网络等条件。
+代码位置和证据见 [深度核对](verification_zh.md)。
 
 ## 6. 定时参数
 
@@ -174,8 +179,8 @@ http://dm.wo.com.cn:18080/register
 
 ## 7. 未确认的行为
 
-- **上传频率**：代码按 1h / 12h / 24h 定时触发，并检查同意开关和网络条件。
-  本轮 20 秒观测没有流量增量，不能推算每天的上报次数。
+- **上传频率**：代码配置 1h / 12h / 24h 定时参数，实际执行还受厂商判断、网络和系统调度影响。
+  本轮 180 秒观测没有流量增量，不能推算每天的上报次数。
 - **缓存门牌级地址**：已识别的上报字段没有地址文本。定位 SDK 中的 `AP` / `CL` 表用于 WiFi 指纹定位；
   应用私有目录未读取，无法确认其中的实际缓存内容。
 - **上传 WiFi 名称**：百度 SDK 中存在 `getSSID / getBSSID / getScanResults` 调用，自有上报 JSON 未发现 SSID 字段。

@@ -2,7 +2,7 @@
 
 ## 工具
 
-需要 adb 和 Python 3。仓库中的四个脚本只依赖 Python 标准库。
+需要 adb 和 Python 3。仓库中的脚本只依赖 Python 标准库。
 
 | 脚本 | 作用 |
 |---|---|
@@ -10,6 +10,7 @@
 | `dex_strings.py` | 提取 DEX 字符串表 |
 | `dex_scan.py` | 遍历方法，输出方法调用、字符串常量和字段引用 |
 | `dump_method.py` | 反汇编单个方法，解析常量、字符串和方法引用 |
+| `verify_gates.py` | 提取厂商判断、变量写入和编码静态默认值 |
 
 ## 静态分析
 
@@ -37,6 +38,9 @@ python scripts/dex_scan.py unpack/classes.dex "com/mobiletools" > scan_own.txt
 
 # 7. 读取配置类静态初始化方法
 python scripts/dump_method.py unpack/classes.dex "Lc/d/a/b/d;" "<clinit>"
+
+# 8. 核对厂商判断与默认服务器地址
+python scripts/verify_gates.py unpack/classes.dex > gate-verification.json
 ```
 
 第 7 步的类名对应本次样本，其他版本需重新定位。方法调用和字符串引用用于定位行为，
@@ -58,6 +62,7 @@ adb shell dumpsys deviceidle whitelist
 adb shell dumpsys alarm
 
 # 网络流量
+adb shell dumpsys netstats --poll
 adb shell dumpsys netstats detail
 
 # CPU 时间和进程启动次数
@@ -70,7 +75,7 @@ adb shell settings get secure operator_service_improve_plan
 adb shell cmd appops get com.mobiletools.systemhelper RUN_ANY_IN_BACKGROUND
 ```
 
-流量使用 `UID stats` 中目标 UID 的全部时间桶汇总，不叠加 `UID tag stats`。
+本机 `--poll` 返回 `Forced poll` 后再读取统计。流量使用 `UID stats` 中目标 UID 的全部时间桶汇总，不叠加 `UID tag stats`。
 CPU 和启动次数取目标进程的数据，不汇总其他应用。
 
 ## 数据脱敏

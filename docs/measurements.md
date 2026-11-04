@@ -1,7 +1,7 @@
 # 运行期实测
 
 采样日期：2026-11-04，时区 UTC+8。设备为 Xiaomi Redmi，Android 16，主用户为 `0`。
-本页只使用本轮采集结果。通过 adb 读取系统状态，未修改设置、未手动启动服务、未注入或 hook。
+本页只使用本轮采集结果。保持现有设置，执行服务启动尝试和统计读取，未重新开放上报、未注入或 hook。
 
 ## 1. 应用和设置
 
@@ -31,25 +31,25 @@
 | `GetSignalInfoReceiver` 唤醒闹钟计数 | 0 次 |
 
 系统本轮电池统计显示电池供电时长为 6 小时 36 分 51 秒。CPU 时间和启动次数是系统累计记录，
-不是本次 20 秒观测期间产生的增量。本次未测量耗电量或流畅度变化。
+不是本次 180 秒观测期间产生的增量。本次未测量耗电量或流畅度变化。
 
 ## 3. 网络流量
 
-读取 `dumpsys netstats detail`，只汇总 `UID stats` 中 `uid=10101` 的全部时间桶。
-共 4 条网络记录、23 个时间桶，不叠加 `UID tag stats`。
+14:52:46 至 14:55:46，每隔约 30 秒读取一次，共 7 个采样点。
+每次先执行 `dumpsys netstats --poll`，确认返回 `Forced poll`，再读取 `dumpsys netstats detail`。
+只汇总 `UID stats` 中 `uid=10101` 的全部时间桶，共 4 条网络记录、23 个时间桶，不叠加 `UID tag stats`。
 
-| 指标 | 14:25:02 | 14:25:22 | 20 秒差值 |
+| 指标 | 14:52:46 | 14:55:46 | 180 秒差值 |
 |---|---|---|---|
 | 下行字节 `rb` | 510,307 B | 510,307 B | 0 B |
 | 上行字节 `tb` | 138,942 B | 138,942 B | 0 B |
 | 下行包数 `rp` | 808 | 808 | 0 |
 | 上行包数 `tp` | 857 | 857 | 0 |
 
-20 秒内，该 UID 的系统流量统计没有增加。两次读取之间未手动触发注册服务，
-因此本轮没有验证「主动触发后是否发送」。
+7 个采样点的统计一致，未发现该应用或其 `:remote` 进程。期间开关保持为 `0`，后台限制保持为 `ignore`。
+两次服务启动均失败，结果列在第 6 节。
 
-累计统计不代表完整使用历史，也不能区分业务上报和定位 SDK 流量。
-本次没有逐请求抓包，不能由短时统计推算每天上报次数或保证后续始终不发送。
+这里统计整个 UID 的流量，包含业务代码和定位 SDK。具体请求内容未抓取。
 
 ## 4. 闹钟
 
@@ -63,8 +63,7 @@
 | `SignalInfoRegisterReceiver` | +11 小时 0 分 35 秒 |
 | `ScheduleRegisterReceiver` | +11 小时 22 分 20 秒 |
 
-负值表示该记录的计划时间早于抓取时刻。闹钟记录仍存在，不代表它已成功执行。
-`RUN_ANY_IN_BACKGROUND=ignore` 也不能据此解释为所有闹钟均已取消。
+负值表示该记录的计划时间早于抓取时刻。这些闹钟记录在抓取时仍然存在。
 
 ## 5. 无法读取的内容
 
@@ -75,3 +74,27 @@
 | `run-as com.mobiletools.systemhelper id` | `package not debuggable` |
 
 本轮未读取到实际 `serverAddress`、本地缓存或历史队列，因此未确认接收服务器和历史上报次数。
+
+## 6. 主动启动尝试
+
+保持 `operator_service_improve_plan=0` 和 `RUN_ANY_IN_BACKGROUND=ignore`，分别执行：
+
+| 命令 | 返回结果 |
+|---|---|
+| `am start-foreground-service --user 0 -n com.mobiletools.systemhelper/.service.RegisterHelperService` | 退出码 255；`Not found; no service started.` |
+| `am startservice --user 0 -n com.mobiletools.systemhelper/.service.RegisterHelperService` | 退出码 255；`app is in background uid null` |
+
+包管理器仍能解析出该服务，应用进程未出现；服务记录中 `app=null`。
+前一种失败的具体原因未确认，后一种明确报告后台启动被拒绝。
+测试期间后台限制保持不变。
+
+代码显示 `RegisterHelperService` 用于 Binder 配置和电话状态监听初始化，单独启动不等于触发注册上报。
+本轮没有成功执行完整上报流程。另一个只调用原始判断方法的 `app_process` 探针被终止（退出码 137），
+没有产生结果。
+
+## 7. 系统联网控制入口
+
+实际打开 `SystemHelper → App info → Network access`，页面显示 SIM 1、SIM 2、WLAN 均为开启状态。
+本轮未切换这些控件。
+
+脱敏结构化记录见 [证据文件](evidence/verification-2026-11-04.json)，结论见 [深度核对报告](verification_zh.md)。

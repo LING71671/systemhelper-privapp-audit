@@ -1,0 +1,599 @@
+{
+  "date": "2026-11-04",
+  "timezone": "UTC+8",
+  "sample": {
+    "package": "com.mobiletools.systemhelper",
+    "versionName": "3.0.1-20250311",
+    "versionCode": 31,
+    "apkSha256": "5267008ede808c467988df588915791d21a6f1f3fbe219c57b125a235000df4f"
+  },
+  "deviceScope": {
+    "manufacturer": "Xiaomi",
+    "androidVersion": "16",
+    "user": 0,
+    "uid": 10101,
+    "deviceProvisioned": 1
+  },
+  "staticVerification": {
+    "dexSha256": "f6bee7fba7a94241b1f4b1e41f866dd04292d7e909cce387cf8b0044f79c4fba",
+    "defaultServerAddress": "http://dm.wo.com.cn:18080/register",
+    "readerClasses": {
+      "Liantong": "Lc/d/a/a/b;",
+      "nubia": "Lc/d/a/a/c;",
+      "OPPO": "Lc/d/a/a/d;",
+      "OnePlus": "Lc/d/a/a/e;",
+      "PTAC": "Lc/d/a/a/f;",
+      "realme": "Lc/d/a/a/g;",
+      "samsung": "Lc/d/a/a/h;",
+      "TDTECH": "Lc/d/a/a/i;",
+      "vivo": "Lc/d/a/a/j;",
+      "WIKO": "Lc/d/a/a/k;",
+      "Xiaomi": "Lc/d/a/a/l;",
+      "ZTE": "Lc/d/a/a/m;"
+    },
+    "methods": [
+      {
+        "method": "Lc/d/a/b/l;->a(Landroid/content/Context;)Z",
+        "strings": [
+          "device_provisioned",
+          "isBootWizardCompleted: ",
+          "RegisterUtils",
+          "operator_service_improve_plan",
+          "checkUserPermission:"
+        ],
+        "settingsCalls": [
+          "Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I",
+          "Landroid/provider/Settings$Secure;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I"
+        ],
+        "readerGateCalls": [],
+        "gateFieldReferences": [],
+        "staticFieldWrites": []
+      },
+      {
+        "method": "Lc/d/a/b/l;->h(Landroid/content/Context;)Ljava/lang/String;",
+        "strings": [
+          "serverAddress"
+        ],
+        "settingsCalls": [],
+        "readerGateCalls": [],
+        "gateFieldReferences": [],
+        "staticFieldWrites": []
+      },
+      {
+        "method": "Lcom/mobiletools/systemhelper/control/GetSignalInfoReceiver;->b(Landroid/content/Context;)Z",
+        "strings": [
+          "device_provisioned",
+          "isBootWizardCompleted: ",
+          "GetSignalInfoReceiver"
+        ],
+        "settingsCalls": [
+          "Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I"
+        ],
+        "readerGateCalls": [],
+        "gateFieldReferences": [],
+        "staticFieldWrites": []
+      },
+      {
+        "method": "Lcom/mobiletools/systemhelper/control/e;->a(Lorg/json/JSONObject;)Z",
+        "strings": [
+          "Model",
+          "Manuf",
+          "HistoryPostThread",
+          "model:",
+          " ,manuf:",
+          " ,postString：",
+          "utf-8",
+          "?ver=",
+          "5.0",
+          "&model=",
+          "&manuf=",
+          "&sign=",
+          "sendPOSTRequest exception--->",
+          "doEncrpytPost catch exception "
+        ],
+        "settingsCalls": [],
+        "readerGateCalls": [],
+        "gateFieldReferences": [
+          "Lc/d/a/b/d;->e:Z"
+        ],
+        "staticFieldWrites": []
+      },
+      {
+        "method": "Lcom/mobiletools/systemhelper/control/g;->a(Lcom/mobiletools/systemhelper/control/b;)Z",
+        "strings": [
+          "RegisterThread",
+          "isUserPermissionOpen is false!",
+          "register postString：",
+          "utf-8",
+          "?ver=",
+          "5.0",
+          "&model=",
+          "&manuf=",
+          "&sign=",
+          "RSA加密密文： ",
+          "AES加密密文： ",
+          "sendPOSTRequest exception--->",
+          "doEncrpytPost catch exception "
+        ],
+        "settingsCalls": [],
+        "readerGateCalls": [],
+        "gateFieldReferences": [
+          "Lc/d/a/b/d;->e:Z"
+        ],
+        "staticFieldWrites": []
+      },
+      {
+        "method": "Lc/d/a/a/a;->b(Landroid/content/Context;)Z",
+        "strings": [
+          "device_provisioned",
+          "DeviceInfoReaderBase",
+          "isBootWizardCompleted: "
+        ],
+        "settingsCalls": [
+          "Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I"
+        ],
+        "readerGateCalls": [],
+        "gateFieldReferences": [],
+        "staticFieldWrites": []
+      },
+      {
+        "method": "Lc/d/a/a/b;->a(Landroid/content/Context;Lcom/mobiletools/systemhelper/control/b;)V",
+        "strings": [
+          "Unsupported API:",
+          "DeviceInfoReaderLiantong"
+        ],
+        "settingsCalls": [],
+        "readerGateCalls": [],
+        "gateFieldReferences": [],
+        "staticFieldWrites": []
+      },
+      {
+        "method": "Lc/d/a/a/c;->a(Landroid/content/Context;Lcom/mobiletools/systemhelper/control/b;)V",
+        "strings": [
+          "DeviceInfoReaderNubia",
+          "isUserPermissionOpen==false, do not read!",
+          "NX659J",
+          "NX651J",
+          "angelcare N9",
+          "NX724J",
+          "DeviceInfoReaderNubia model unknow!!!",
+          "model : angelcare N9",
+          "ro.build.display.id",
+          "ro.product.hardware"
+        ],
+        "settingsCalls": [],
+        "readerGateCalls": [],
+        "gateFieldReferences": [
+          "Lc/d/a/b/d;->e:Z"
+        ],
+        "staticFieldWrites": []
+      },
+      {
+        "method": "Lc/d/a/a/d;->d(Landroid/content/Context;)Z",
+        "strings": [
+          "device_provisioned",
+          "isBootWizardCompleted: ",
+          "DeviceInfoReaderOPPO"
+        ],
+        "settingsCalls": [
+          "Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I"
+        ],
+        "readerGateCalls": [],
+        "gateFieldReferences": [],
+        "staticFieldWrites": []
+      },
+      {
+        "method": "Lc/d/a/a/d;->a(Landroid/content/Context;Lcom/mobiletools/systemhelper/control/b;)V",
+        "strings": [
+          "DeviceInfoReaderOPPO module:",
+          "DeviceInfoReaderOPPO",
+          "ro.build.hardware.version",
+          "GlobalSetting.isUserPermissionOpen",
+          "isUserPermissionOpen==false, do not read!",
+          "Unsupported API:"
+        ],
+        "settingsCalls": [],
+        "readerGateCalls": [
+          "Lc/d/a/a/d;->d(Landroid/content/Context;)Z"
+        ],
+        "gateFieldReferences": [
+          "Lc/d/a/b/d;->e:Z",
+          "Lc/d/a/b/d;->e:Z",
+          "Lc/d/a/b/d;->e:Z"
+        ],
+        "staticFieldWrites": [
+          {
+            "codeUnit": 39,
+            "field": "Lc/d/a/b/d;->e:Z"
+          }
+        ]
+      },
+      {
+        "method": "Lc/d/a/a/e;->a(Landroid/content/Context;Lcom/mobiletools/systemhelper/control/b;)V",
+        "strings": [
+          "Unsupported API:",
+          "DeviceInfoReaderOnePlus"
+        ],
+        "settingsCalls": [],
+        "readerGateCalls": [],
+        "gateFieldReferences": [],
+        "staticFieldWrites": []
+      },
+      {
+        "method": "Lc/d/a/a/f;->a(Landroid/content/Context;Lcom/mobiletools/systemhelper/control/b;)V",
+        "strings": [
+          "\\s+",
+          "ro.board.hardware_version",
+          "DeviceInfoReaderPTAC",
+          "isUserPermissionOpen==false, do not read!",
+          "Unsupported API:"
+        ],
+        "settingsCalls": [],
+        "readerGateCalls": [],
+        "gateFieldReferences": [
+          "Lc/d/a/b/d;->e:Z"
+        ],
+        "staticFieldWrites": []
+      },
+      {
+        "method": "Lc/d/a/a/g;->a(Landroid/content/Context;Lcom/mobiletools/systemhelper/control/b;)V",
+        "strings": [
+          "ro.build.display.id",
+          "ro.build.hardware.version",
+          "DeviceInfoReaderRealme",
+          "isUserPermissionOpen==false, do not read!",
+          "Unsupported API:"
+        ],
+        "settingsCalls": [],
+        "readerGateCalls": [],
+        "gateFieldReferences": [
+          "Lc/d/a/b/d;->e:Z"
+        ],
+        "staticFieldWrites": []
+      },
+      {
+        "method": "Lc/d/a/a/h;->d(Landroid/content/Context;)Z",
+        "strings": [
+          "device_provisioned",
+          "isBootWizardCompleted: ",
+          "DeviceInfoReaderSamSung"
+        ],
+        "settingsCalls": [
+          "Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I"
+        ],
+        "readerGateCalls": [],
+        "gateFieldReferences": [],
+        "staticFieldWrites": []
+      },
+      {
+        "method": "Lc/d/a/a/h;->a(Landroid/content/Context;Lcom/mobiletools/systemhelper/control/b;)V",
+        "strings": [
+          "DeviceInfoReaderSamSung module:",
+          "DeviceInfoReaderSamSung",
+          "ril.sw_ver",
+          "ril.hw_ver",
+          "GlobalSetting.isUserPermissionOpen",
+          "isUserPermissionOpen==false, do not read!",
+          "Unsupported API:"
+        ],
+        "settingsCalls": [],
+        "readerGateCalls": [
+          "Lc/d/a/a/h;->d(Landroid/content/Context;)Z"
+        ],
+        "gateFieldReferences": [
+          "Lc/d/a/b/d;->e:Z",
+          "Lc/d/a/b/d;->e:Z",
+          "Lc/d/a/b/d;->e:Z"
+        ],
+        "staticFieldWrites": [
+          {
+            "codeUnit": 47,
+            "field": "Lc/d/a/b/d;->e:Z"
+          }
+        ]
+      },
+      {
+        "method": "Lc/d/a/a/i;->a(Landroid/content/Context;Lcom/mobiletools/systemhelper/control/b;)V",
+        "strings": [
+          "Unsupported API:",
+          "DeviceInfoReaderTDTECH"
+        ],
+        "settingsCalls": [],
+        "readerGateCalls": [],
+        "gateFieldReferences": [],
+        "staticFieldWrites": []
+      },
+      {
+        "method": "Lc/d/a/a/j;->a(Landroid/content/Context;Lcom/mobiletools/systemhelper/control/b;)V",
+        "strings": [
+          "GlobalSetting.isUserPermissionOpen",
+          "DeviceInfoReaderVIVO",
+          "isUserPermissionOpen==false, do not read!",
+          "enter DeviceInfoReaderVIVO read vivo",
+          "Unsupported API:"
+        ],
+        "settingsCalls": [],
+        "readerGateCalls": [
+          "Lc/d/a/a/j;->d(Landroid/content/Context;)Z"
+        ],
+        "gateFieldReferences": [
+          "Lc/d/a/b/d;->e:Z",
+          "Lc/d/a/b/d;->e:Z",
+          "Lc/d/a/b/d;->e:Z"
+        ],
+        "staticFieldWrites": [
+          {
+            "codeUnit": 7,
+            "field": "Lc/d/a/b/d;->e:Z"
+          }
+        ]
+      },
+      {
+        "method": "Lc/d/a/a/j;->d(Landroid/content/Context;)Z",
+        "strings": [
+          "device_provisioned",
+          "isBootWizardCompleted: ",
+          "DeviceInfoReaderVIVO",
+          "operator_service_improve_plan",
+          "checkUserPermission:"
+        ],
+        "settingsCalls": [
+          "Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I",
+          "Landroid/provider/Settings$Secure;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I"
+        ],
+        "readerGateCalls": [],
+        "gateFieldReferences": [],
+        "staticFieldWrites": []
+      },
+      {
+        "method": "Lc/d/a/a/k;->a(Landroid/content/Context;Lcom/mobiletools/systemhelper/control/b;)V",
+        "strings": [
+          "DeviceInfoReaderWIKO",
+          "isUserPermissionOpen==false, do not read!",
+          "model : MKY-AN20",
+          "\\s+",
+          "ro.board.hardware_version",
+          "Unsupported API:"
+        ],
+        "settingsCalls": [],
+        "readerGateCalls": [],
+        "gateFieldReferences": [
+          "Lc/d/a/b/d;->e:Z"
+        ],
+        "staticFieldWrites": []
+      },
+      {
+        "method": "Lc/d/a/a/l;->d(Landroid/content/Context;)Z",
+        "strings": [
+          "device_provisioned",
+          "isBootWizardCompleted: ",
+          "DeviceInfoReaderXiaomi"
+        ],
+        "settingsCalls": [
+          "Landroid/provider/Settings$Global;->getInt(Landroid/content/ContentResolver;Ljava/lang/String;I)I"
+        ],
+        "readerGateCalls": [],
+        "gateFieldReferences": [],
+        "staticFieldWrites": []
+      },
+      {
+        "method": "Lc/d/a/a/l;->a(Landroid/content/Context;Lcom/mobiletools/systemhelper/control/b;)V",
+        "strings": [
+          "GlobalSetting.isUserPermissionOpen",
+          "DeviceInfoReaderXiaomi",
+          "Unsupported API:"
+        ],
+        "settingsCalls": [],
+        "readerGateCalls": [
+          "Lc/d/a/a/l;->d(Landroid/content/Context;)Z"
+        ],
+        "gateFieldReferences": [
+          "Lc/d/a/b/d;->e:Z",
+          "Lc/d/a/b/d;->e:Z"
+        ],
+        "staticFieldWrites": [
+          {
+            "codeUnit": 7,
+            "field": "Lc/d/a/b/d;->e:Z"
+          }
+        ]
+      },
+      {
+        "method": "Lc/d/a/a/m;->a(Landroid/content/Context;Lcom/mobiletools/systemhelper/control/b;)V",
+        "strings": [
+          "ro.product.hardware",
+          "UnKnow",
+          "DeviceInfoReaderZTE",
+          "isUserPermissionOpen==false, do not read!",
+          "Unsupported API:"
+        ],
+        "settingsCalls": [],
+        "readerGateCalls": [],
+        "gateFieldReferences": [
+          "Lc/d/a/b/d;->e:Z"
+        ],
+        "staticFieldWrites": []
+      }
+    ],
+    "scope": "Static bytecode inspection only; does not execute collectors or prove runtime traffic behavior."
+  },
+  "serviceAttempts": [
+    {
+      "command": "am start-foreground-service --user 0 -n com.mobiletools.systemhelper/.service.RegisterHelperService",
+      "exitCode": 255,
+      "stderr": "Error: Not found; no service started."
+    },
+    {
+      "command": "am startservice --user 0 -n com.mobiletools.systemhelper/.service.RegisterHelperService",
+      "exitCode": 255,
+      "stderr": "Error: app is in background uid null"
+    }
+  ],
+  "monitor": [
+    {
+      "time": "2026-11-04T14:52:46+08:00",
+      "pollConfirmed": true,
+      "uid": 10101,
+      "buckets": 23,
+      "totals": {
+        "rb": 510307,
+        "rp": 808,
+        "tb": 138942,
+        "tp": 857
+      },
+      "processes": [],
+      "consent": "0",
+      "background": "RUN_ANY_IN_BACKGROUND: ignore",
+      "elapsedSeconds": 0.6
+    },
+    {
+      "time": "2026-11-04T14:53:16+08:00",
+      "pollConfirmed": true,
+      "uid": 10101,
+      "buckets": 23,
+      "totals": {
+        "rb": 510307,
+        "rp": 808,
+        "tb": 138942,
+        "tp": 857
+      },
+      "processes": [],
+      "consent": "0",
+      "background": "RUN_ANY_IN_BACKGROUND: ignore",
+      "elapsedSeconds": 30.7,
+      "delta": {
+        "rb": 0,
+        "rp": 0,
+        "tb": 0,
+        "tp": 0
+      }
+    },
+    {
+      "time": "2026-11-04T14:53:46+08:00",
+      "pollConfirmed": true,
+      "uid": 10101,
+      "buckets": 23,
+      "totals": {
+        "rb": 510307,
+        "rp": 808,
+        "tb": 138942,
+        "tp": 857
+      },
+      "processes": [],
+      "consent": "0",
+      "background": "RUN_ANY_IN_BACKGROUND: ignore",
+      "elapsedSeconds": 60.6,
+      "delta": {
+        "rb": 0,
+        "rp": 0,
+        "tb": 0,
+        "tp": 0
+      }
+    },
+    {
+      "time": "2026-11-04T14:54:16+08:00",
+      "pollConfirmed": true,
+      "uid": 10101,
+      "buckets": 23,
+      "totals": {
+        "rb": 510307,
+        "rp": 808,
+        "tb": 138942,
+        "tp": 857
+      },
+      "processes": [],
+      "consent": "0",
+      "background": "RUN_ANY_IN_BACKGROUND: ignore",
+      "elapsedSeconds": 90.5,
+      "delta": {
+        "rb": 0,
+        "rp": 0,
+        "tb": 0,
+        "tp": 0
+      }
+    },
+    {
+      "time": "2026-11-04T14:54:46+08:00",
+      "pollConfirmed": true,
+      "uid": 10101,
+      "buckets": 23,
+      "totals": {
+        "rb": 510307,
+        "rp": 808,
+        "tb": 138942,
+        "tp": 857
+      },
+      "processes": [],
+      "consent": "0",
+      "background": "RUN_ANY_IN_BACKGROUND: ignore",
+      "elapsedSeconds": 120.6,
+      "delta": {
+        "rb": 0,
+        "rp": 0,
+        "tb": 0,
+        "tp": 0
+      }
+    },
+    {
+      "time": "2026-11-04T14:55:16+08:00",
+      "pollConfirmed": true,
+      "uid": 10101,
+      "buckets": 23,
+      "totals": {
+        "rb": 510307,
+        "rp": 808,
+        "tb": 138942,
+        "tp": 857
+      },
+      "processes": [],
+      "consent": "0",
+      "background": "RUN_ANY_IN_BACKGROUND: ignore",
+      "elapsedSeconds": 150.7,
+      "delta": {
+        "rb": 0,
+        "rp": 0,
+        "tb": 0,
+        "tp": 0
+      }
+    },
+    {
+      "time": "2026-11-04T14:55:46+08:00",
+      "pollConfirmed": true,
+      "uid": 10101,
+      "buckets": 23,
+      "totals": {
+        "rb": 510307,
+        "rp": 808,
+        "tb": 138942,
+        "tp": 857
+      },
+      "processes": [],
+      "consent": "0",
+      "background": "RUN_ANY_IN_BACKGROUND: ignore",
+      "elapsedSeconds": 180.5,
+      "delta": {
+        "rb": 0,
+        "rp": 0,
+        "tb": 0,
+        "tp": 0
+      }
+    }
+  ],
+  "networkControlUi": {
+    "application": "SystemHelper",
+    "path": "App info > Network access",
+    "SIM1": "shown enabled",
+    "SIM2": "shown enabled",
+    "WLAN": "shown enabled",
+    "changedByThisAudit": false,
+    "disableEffectTested": false
+  },
+  "privacy": "No serial, subscriber identifiers, SSID/BSSID, IP addresses, account names, private chat text, local paths or API key values included.",
+  "checksNotCompleted": [
+    "No successful active registration trigger.",
+    "No positive control with background access allowed.",
+    "No decrypted packet capture or native-library audit.",
+    "Private preferences and databases remained inaccessible.",
+    "Original-method app_process probe was killed with exit 137 before producing results."
+  ]
+}
