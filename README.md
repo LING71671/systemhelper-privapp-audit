@@ -1,6 +1,7 @@
 # com.mobiletools.systemhelper 行为分析
 
-记录一台 Xiaomi Redmi（Android 16）上预置组件的权限、采集内容、网络行为和后台限制方法。
+记录两台 Xiaomi 设备上预置组件的权限、采集内容、网络行为和处置方法：
+Redmi（Android 16）用于静态与动态审计，15 Ultra（HyperOS 3 / Android 16）用于用户级卸载实测。
 
 ## 结论
 
@@ -32,18 +33,26 @@
 | 同意开关能否关闭本机业务逻辑 | 不能 | 小米分支使用 `device_provisioned`，未检查该同意开关 |
 | 普通后台服务启动 | 被拒绝 | `Error: app is in background uid null` |
 | 本轮流量 | 180 秒内无增量 | 强制刷新后，`UID stats` 累计上行 138,942 B、857 个包，下行 510,307 B、808 个包 |
+| 用户级卸载 | 可行 | 15 Ultra / HyperOS 3.0.314.0：user 0、10 均 `Success`，三个用户 `installed=false` |
 
-## 后台限制
+## 处置
 
-连接 adb 后执行以下命令，无需 root：
+连接 adb 后执行以下命令，无需 root。本轮在 Xiaomi 15 Ultra（HyperOS `3.0.314.0.WOACNXM` / Android 16，
+组件版本 `4.0.0-20260610` / 34）上实测通过：
 
 ```bash
-adb shell cmd appops set com.mobiletools.systemhelper RUN_ANY_IN_BACKGROUND ignore
-adb shell cmd appops get com.mobiletools.systemhelper RUN_ANY_IN_BACKGROUND
+adb shell pm uninstall --user 0 com.mobiletools.systemhelper
+adb shell pm list packages --user 0 | grep com.mobiletools.systemhelper
 ```
 
-预期返回 `ignore`。
-手机端联网入口、验证范围和恢复命令见 [处置方法](docs/mitigation.md)；
+第二条应无输出。需要恢复时：
+
+```bash
+adb shell cmd package install-existing --user 0 com.mobiletools.systemhelper
+```
+
+隐私空间、XSpace 等多用户处理、验证矩阵和边界见 [处置方法](docs/mitigation.md) 第 6 节；
+组件无法卸载时，退回后台限制，见 [处置方法](docs/mitigation.md) 第 2 节。
 需要 AI 助手执行时，见 [操作提示词](docs/guide-with-ai.md)。
 
 ## 文档
@@ -53,7 +62,7 @@ adb shell cmd appops get com.mobiletools.systemhelper RUN_ANY_IN_BACKGROUND
 | [docs/guide-with-ai.md](docs/guide-with-ai.md) | 连接准备、操作提示词和验证标准 |
 | [docs/analysis.md](docs/analysis.md) | 组件、权限、采集字段、加密通道、定时机制 |
 | [docs/measurements.md](docs/measurements.md) | 本轮采集的设置、CPU、流量、闹钟和访问限制 |
-| [docs/mitigation.md](docs/mitigation.md) | 后台限制、系统联网入口、观测和恢复命令 |
+| [docs/mitigation.md](docs/mitigation.md) | 用户级卸载（推荐）、后台限制、系统联网入口、观测和恢复命令 |
 | [docs/reproduce.md](docs/reproduce.md) | 样本提取、静态分析脚本和运行期取证命令 |
 | [docs/verification_zh.md](docs/verification_zh.md) | 厂商分支、关闭效果与脱敏证据；[English](docs/verification.md) |
 
